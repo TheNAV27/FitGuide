@@ -20,9 +20,9 @@ public class UserService {
         User user2 = new User(2,"Hans",  "hans@mail.com");
         User user3 = new User(3,"Lars",  "lars@mail.com");
         User user4 = new User(4,"Ben",  "ben@mail.com");
-        User user5 = new User(5,"Eva",  "eva@mail.com");
+        User user5 = new User(5,"Elise",  "elisemariebiswas@gmail.com");
 
-        userList.addAll(Arrays.asList(user));
+        userList.addAll(Arrays.asList(user,user2,user3,user4,user5));
     }
     public Optional<User> getUser(Integer id) {
         Optional optional = Optional.empty();
