@@ -24,6 +24,9 @@ public class UserService {
 
         userList.addAll(Arrays.asList(user,user2,user3,user4,user5));
     }
+    public List<User> getUserList() {
+        return userList;
+    }
     public Optional<User> getUser(Integer id) {
         Optional optional = Optional.empty();
         for(User user : userList) {
