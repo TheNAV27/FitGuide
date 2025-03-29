@@ -1,6 +1,7 @@
 <script lang="ts">
     import {json} from "@sveltejs/kit";
     import {onMount} from "svelte";
+    import {goto} from "$app/navigation";
 
     interface User{
         id : number;
@@ -46,8 +47,9 @@
             console.error(err);
         }
     }
-
-
+    async function redirectToHome(){
+        goto('/main')
+    }
 
 </script>
 
@@ -64,6 +66,9 @@
             <th>Name</th>
             <th>ID</th>
             <th>email</th>
+            <th>
+                <button on:click={redirectToHome}>Home page</button>
+            </th>
         </tr>
         </thead>
         <tbody>
@@ -72,11 +77,6 @@
                 <td>{user.name}</td>
                 <td>{user.id}</td>
                 <td>{user.email}</td>
-                <td>
-                    <button on:click={() => fetchUserByID(user.id)}>
-                        View Details
-                    </button>
-                </td>
             </tr>
         {/each}
         </tbody>
