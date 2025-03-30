@@ -8,9 +8,17 @@
         height: number;
         age: number;
     }
+    interface tdeeFormData{
+        bmr : number;
+        activityLevel:'Sedentary' | 'Lightly active' | 'Moderately active' | 'Very active' | 'Extremely active' ;
+    }
 
     interface resultBMR{
         bmr : number;
+    }
+    interface resultTdee{
+        tdee: number;
+        activityLevel : string;
     }
     let formData: BmrFormData = {
         gender: 'male',
@@ -18,13 +26,20 @@
         height: 175,
         age: 30,
     };
-    let result: resultBMR | null = null;
-    let loading = false;
+    let tdeeData : tdeeFormData = {
+        bmr : 1500,
+        activityLevel:'Sedentary'
+
+    };
+    let bmrResult: resultBMR;
+    let tdeeResult: resultTdee;
+    let bmrLoading = false;
+    let tdeeLoading = false;
     let error: string | null = null;
 
     async function calculateBmr(event : Event){
         event.preventDefault();
-        loading = true;
+        bmrLoading = true;
         error = null;
 
         try{
@@ -34,17 +49,42 @@
             params.append('height',formData.height.toString())
             params.append('age',formData.age.toString())
 
-            const response = await fetch(`http://localhost:8080/users/calculate?${params.toString()}`);
+            const response = await fetch(`http://localhost:8080/users/calculateBMR?${params.toString()}`);
 
             if(!response.ok){
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            result = await response.json();
+            bmrResult = await response.json();
+            tdeeData.bmr = bmrResult.bmr;
         } catch(err){
             error = err instanceof Error ? err.message : 'Unknown error occurred';
             console.error('Calculation error:', err);
         }finally{
-            loading = false;
+            bmrLoading = false;
+        }
+    }
+
+    async function calculateTDEE(event: Event){
+        event.preventDefault();
+        tdeeLoading = true;
+        error = null;
+
+        try{
+            const params = new URLSearchParams();
+            params.append('BMR',tdeeData.bmr.toString())
+            params.append('activityLevel',tdeeData.activityLevel)
+
+            const response = await fetch(`http://localhost:8080/users/calculateTDEE?${params.toString()}`);
+
+            if(!response.ok){
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            tdeeResult = await response.json()
+        }catch(err){
+            error = err instanceof Error ? err.message : 'Unknown error occurred';
+            console.error('Calculation error:', err);
+        }finally{
+            tdeeLoading = false;
         }
     }
 
@@ -53,6 +93,8 @@
 <h1>
     Welcome to FitGuide
 </h1>
+<!-- BMR calculator -->
+
 <div class = "bmrcalculator-container">
     <h2>
         Calculate BMR
@@ -85,18 +127,54 @@
             required
             />
         <br>
-        <button type="submit" disabled={loading}>
-            {loading ? 'Calculating...':'Calculate'}
+        <button type="submit" disabled={bmrLoading}>
+            {bmrLoading ? 'Calculating...':'Calculate'}
         </button>
     </form>
 </div>
 {#if error}
     <p>{error}</p>
 {/if}
-{#if result}
+{#if bmrResult}
     <h2>Your result</h2>
-    <p><strong>BMR:</strong>{result.bmr} kcal/day (calories at rest)</p>
+    <p><strong>BMR:</strong>{bmrResult.bmr} kcal/day (calories at rest)</p>
 {/if}
+
+<!-- tdee calculator -->
+
+<div class="tdeecalculator-container">
+    <h2>Calculate TDEE</h2>
+    <label for="BMR">Your BMR: </label>
+    <input
+            id = "BMR"
+            type= "number"
+            bind:value={tdeeData.bmr}
+            required
+    />
+    <form on:submit={calculateTDEE}>
+        <label for="activityLevel">Activity Level</label>
+        <select id="activityLevel" bind:value={tdeeData.activityLevel}>
+            <option value ="Sedentary">Sedentary</option>
+            <option value ="Lightly active">Lightly active</option>
+            <option value ="Moderately active">Moderately active</option>
+            <option value ="Very active">Very active</option>
+            <option value ="Extremely active">Extremely active</option>
+        </select>
+        <button type="submit" disabled={tdeeLoading}>
+            {tdeeLoading ? 'Calculating...':'Calculate'}
+        </button>
+    </form>
+</div>
+{#if tdeeResult}
+    <div class="result-container">
+        <h2>Your TDEE Result</h2>
+        <p><strong>Activity Level:</strong> {tdeeResult.activityLevel}</p>
+        <p><strong>TDEE:</strong> {tdeeResult.tdee.toFixed(2)} kcal/day (maintenance calories)</p>
+    </div>
+{/if}
+
+
+
 
 
 
