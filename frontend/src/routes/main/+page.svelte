@@ -1,5 +1,7 @@
 <script lang="ts">
     import '$lib/styles/style.css';
+    import Header from "$lib/components/Header.svelte";
+    import Footer from "$lib/components/Footer.svelte"
 
 
     interface BmrFormData{
@@ -90,88 +92,107 @@
 
 </script>
 
-<h1>
-    Welcome to FitGuide
-</h1>
 <!-- BMR calculator -->
+<Header />
 
-<div class = "bmrcalculator-container">
-    <h2>
-        Calculate BMR
-    </h2>
+<div class="main-container vertical-form">
+    <h2>Calculate BMR</h2>
     <form on:submit={calculateBmr}>
-        <label for = "gender">Your gender</label>
-        <select id="gender" bind:value={formData.gender}>
-            <option value ="male">Male</option>
-            <option value ="female">Female</option>
-        </select>
-        <label for ="weight">Weight(kg): </label>
-        <input
-            id = "weight"
-            type = "number"
-            bind:value={formData.weight}
-            required
+        <div class="form-group">
+            <label for="gender">Your gender</label>
+            <select id="gender" bind:value={formData.gender}>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="weight">Weight (kg)</label>
+            <input
+                    id="weight"
+                    type="number"
+                    bind:value={formData.weight}
+                    required
             />
-        <label for="height">Height (cm): </label>
-        <input
-            id = "height"
-            type = "number"
-            bind:value={formData.height}
-            required
+        </div>
+
+        <div class="form-group">
+            <label for="height">Height (cm)</label>
+            <input
+                    id="height"
+                    type="number"
+                    bind:value={formData.height}
+                    required
             />
-        <label for="age">Age: </label>
-        <input
-            id = "age"
-            type = "number"
-            bind:value={formData.age}
-            required
+        </div>
+
+        <div class="form-group">
+            <label for="age">Age</label>
+            <input
+                    id="age"
+                    type="number"
+                    bind:value={formData.age}
+                    required
             />
-        <br>
-        <button type="submit" disabled={bmrLoading}>
-            {bmrLoading ? 'Calculating...':'Calculate'}
+        </div>
+
+        <button class="mainButton" type="submit" disabled={bmrLoading}>
+            {bmrLoading ? 'Calculating...' : 'Calculate'}
         </button>
     </form>
 </div>
+
 {#if error}
     <p>{error}</p>
 {/if}
 {#if bmrResult}
-    <h2>Your result</h2>
-    <p><strong>BMR:</strong>{bmrResult.bmr} kcal/day (calories at rest)</p>
+    <div class="main-container">
+        <h2>Your result</h2>
+        <p><strong>BMR:</strong>{bmrResult.bmr} kcal/day (calories at rest)</p>
+    </div>
+
 {/if}
 
 <!-- tdee calculator -->
 
-<div class="tdeecalculator-container">
+<div class="main-container vertical-form">
     <h2>Calculate TDEE</h2>
-    <label for="BMR">Your BMR: </label>
-    <input
-            id = "BMR"
-            type= "number"
-            bind:value={tdeeData.bmr}
-            required
-    />
+    <div class="form group">
+        <label for="BMR">Your BMR: </label>
+        <input
+                id = "BMR"
+                type= "number"
+                bind:value={tdeeData.bmr}
+                required
+        />
+    </div>
+
     <form on:submit={calculateTDEE}>
-        <label for="activityLevel">Activity Level</label>
-        <select id="activityLevel" bind:value={tdeeData.activityLevel}>
-            <option value ="Sedentary">Sedentary</option>
-            <option value ="Lightly active">Lightly active</option>
-            <option value ="Moderately active">Moderately active</option>
-            <option value ="Very active">Very active</option>
-            <option value ="Extremely active">Extremely active</option>
-        </select>
-        <button type="submit" disabled={tdeeLoading}>
+        <div class ="form-group">
+            <label for="activityLevel">Activity Level</label>
+            <select id="activityLevel" bind:value={tdeeData.activityLevel}>
+                <option value ="Sedentary">Sedentary</option>
+                <option value ="Lightly active">Lightly active</option>
+                <option value ="Moderately active">Moderately active</option>
+                <option value ="Very active">Very active</option>
+                <option value ="Extremely active">Extremely active</option>
+            </select>
+        </div>
+
+        <button class="mainButton" type="submit" disabled={tdeeLoading}>
             {tdeeLoading ? 'Calculating...':'Calculate'}
         </button>
     </form>
 </div>
 {#if tdeeResult}
-    <div class="result-container">
+    <div class="main-container">
         <h2>Your TDEE Result</h2>
         <p><strong>Activity Level:</strong> {tdeeResult.activityLevel}</p>
         <p><strong>TDEE:</strong> {tdeeResult.tdee.toFixed(2)} kcal/day (maintenance calories)</p>
     </div>
 {/if}
+
+<Footer/>
 
 
 

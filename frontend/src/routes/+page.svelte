@@ -2,6 +2,9 @@
     import {json} from "@sveltejs/kit";
     import {onMount} from "svelte";
     import {goto} from "$app/navigation";
+    import '$lib/styles/style.css';
+    import Header from "$lib/components/Header.svelte";
+    import Footer from "$lib/components/Footer.svelte"
 
     interface User{
         id : number;
@@ -52,44 +55,37 @@
     }
 
 </script>
+<svelte:head>
+   <title>FitGuide</title>
+</svelte:head>
 
-{#if isLoading}
-    <p>Loading data...</p>
+<Header />
 
-    {:else if error}
-    <p> Error :{error}</p>
+    <div class="main-container">
+        <h2>About the application</h2>
+        <p>This web application is made by Nguyen Anh Vy. This is the perfect web application for tracking the fitness progress, calculating
+            daily calories intake, and building your own training plan. </p>
+    </div>
+<div class="main-container">
+    <h2>
+        BMR and TDEE
+    </h2>
+    <p>
+        BMR (Basal Metabolic Rate) is the calories your body burns at rest to maintain basic functions like breathing and digestion. It depends on age, gender, weight, and muscle mass.
+        TDEE (Total Daily Energy Expenditure) is your total calorie burn in a day, including BMR, exercise, and daily activities. It’s calculated as BMR × Activity Level (sedentary, active, etc.).
+        BMR = Minimum calories needed to survive.
+        TDEE = Total calories burned in a day.
+        To lose weight, eat below TDEE; to maintain, match TDEE; to gain, eat above TDEE. Both help manage diet and fitness goals effectively.
+    </p>
+    <button class="mainButton" on:click={redirectToHome}>BMR and TDEE calculator</button>
+</div>
 
-    {:else}
-    <table>
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>ID</th>
-            <th>email</th>
-            <th>
-                <button on:click={redirectToHome}>Home page</button>
-            </th>
-        </tr>
-        </thead>
-        <tbody>
-        {#each users as user}
-            <tr>
-                <td>{user.name}</td>
-                <td>{user.id}</td>
-                <td>{user.email}</td>
-            </tr>
-        {/each}
-        </tbody>
-    </table>
-    {#if selectedUser}
-        <div class="user-details">
-            <h2>User Details</h2>
-            <div>
-                <p><strong>ID:</strong> {selectedUser.id}</p>
-                <p><strong>Name:</strong> {selectedUser.name}</p>
-                <p><strong>Email:</strong> {selectedUser.email}</p>
-            </div>
-        </div>
-    {/if}
+<Footer />
 
-    {/if}
+
+
+
+
+
+
+

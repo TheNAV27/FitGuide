@@ -1,3 +1,105 @@
-h1{
+.mainhome-container{
+    display: grid;
+    max-width:1200px;
+    margin: 0 auto;
+    padding : 2rem;
+    grid-gap:50px
+}
+.header{
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.fitguide-home{
+    color: #2c3e50;
+    font-size: 2.5rem;
+}
+.main-container {
+    background: skyblue;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-top:20px;
+}
+
+.main-container h2 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.main-container p {
+    color: #495057;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+.mainButton{
+    align-items: center;
+    background: #FFFFFF;
+    border: 0 solid #E2E8F0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    box-sizing: border-box;
+    color: #1A202C;
+    display: inline-flex;
+    font-family: Inter, sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    height: 30px;
+    justify-content: center;
+    line-height: 14px;
+    overflow-wrap: break-word;
+    padding: 14px;
+    text-decoration: none;
+    width: auto;
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    margin-top:15px;
+}
+.bmrtdeebutton:hover{
+    background-color: gray;
+}
+.site-footer{
+    background: skyblue;
+    color: #ecf0f1;
+    padding: 3rem 0 0;
+    margin-top: 4rem;
     text-align: center;
 }
+.footer-section h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+.footer-section p{
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+.vertical-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.vertical-form .form-group {
+    width: 50%;
+}
+
+.vertical-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.vertical-form select,
+.vertical-form input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+
+
+
