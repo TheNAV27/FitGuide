@@ -6,50 +6,8 @@
     import Header from "$lib/components/Header.svelte";
     import Footer from "$lib/components/Footer.svelte"
 
-    interface User{
-        id : number;
-        name : string;
-        email: string;
-    }
 
-    let users : User[] = [];
-    let isLoading = true;
-    let error : string| null=null;
-    let selectedUser: User | null = null;
 
-    onMount(async () => {
-        await fetchUsers();
-    });
-
-    async function fetchUsers(){
-
-        try{
-            const response = await fetch('http://localhost:8080/users');
-            if(!response.ok){
-                throw new Error('HTTP error! status: $(response.status)');
-            }
-            users = await response.json();
-        }
-        catch (err) {
-            error = err instanceof Error ? err.message : 'Unknown error';
-            console.error('Error fetching data:',err);
-        }finally{
-            isLoading = false;
-        }
-    }
-    async function fetchUserByID(id : number){
-        try{
-            const response = await fetch(`http://localhost:8080/users/${id}`)
-            if(!response.ok){
-                throw new Error(`HTTP error! status: ${response.status}`);
-                selectedUser = await response.json();
-
-            }
-        }catch(err){
-            error = err instanceof Error ? err.message : 'Unknown error';
-            console.error(err);
-        }
-    }
     async function redirectToHome(){
         goto('/main')
     }

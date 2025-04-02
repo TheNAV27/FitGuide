@@ -4,10 +4,12 @@ import org.example.fitguide.service.BmrCalculatorService;
 import org.example.fitguide.service.tdeeCalculatorService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api")
 public class BmrController {
     private final BmrCalculatorService bmrCalculatorService;
     private final org.example.fitguide.service.tdeeCalculatorService tdeeCalculatorService;
@@ -16,7 +18,7 @@ public class BmrController {
         this.bmrCalculatorService = bmrCalculatorService;
         this.tdeeCalculatorService = tdeeCalculatorService;
     }
-    @GetMapping("users/calculateBMR")
+    @GetMapping("/calculateBMR")
     public ResponseEntity<?> calculateBMR(
             @RequestParam (required = true) String gender,
             @RequestParam double weight,
@@ -32,7 +34,7 @@ public class BmrController {
         response.setBmr(bmr);
         return ResponseEntity.ok(response);
     }
-    @GetMapping("/users/calculateTDEE")
+    @GetMapping("/calculateTDEE")
     public ResponseEntity<?> calculateTDEE(
             @RequestParam (required = true) double BMR,
             @RequestParam (required = true) String activityLevel

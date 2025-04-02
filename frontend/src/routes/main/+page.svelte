@@ -51,7 +51,12 @@
             params.append('height',formData.height.toString())
             params.append('age',formData.age.toString())
 
-            const response = await fetch(`http://localhost:8080/users/calculateBMR?${params.toString()}`);
+            const response = await fetch(`http://localhost:8080/api/calculateBMR?${params.toString()}`, {
+                credentials: 'include',  // Required for CORS with credentials
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
 
             if(!response.ok){
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -76,7 +81,12 @@
             params.append('BMR',tdeeData.bmr.toString())
             params.append('activityLevel',tdeeData.activityLevel)
 
-            const response = await fetch(`http://localhost:8080/users/calculateTDEE?${params.toString()}`);
+            const response = await fetch(`http://localhost:8080/api/calculateTDEE?${params.toString()}`, {
+                credentials: 'include',  // Required for CORS with credentials
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
 
             if(!response.ok){
                 throw new Error(`HTTP error! status: ${response.status}`);

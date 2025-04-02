@@ -1,17 +1,39 @@
-const BASE_URL = "http://localhost:8080"
+const BASE_URL = "http://localhost:8080/api"
 
-export async function getData (){
-    const response = await fetch(`${BASE_URL}/users`);
-    return await response.json();
-}
-export async function postData(data){
-    const response = await fetch (`${BASE_URL}/users`,{
-        method : 'POST',
+    //BMR API
+export async function calculateBMR(params) {
+    const queryString = new URLSearchParams(params).toString();
+    const response = await fetch(`${BASE_URL}/calculateBMR?${queryString}`, {
+        method: 'GET',
+        credentials: 'include', // if using cookies/sessions
         headers: {
-            'Content-Type':'application/json',
-        },
-        body: JSON.stringify(data)});
-    return await response.json();
+            'Accept': 'application/json',
+        }
+    });
+    return handleResponse(response);
+}
 
+    //TDEE API
+export async function calculateTDEE(bmr, activityLevel) {
+    const response = await fetch(`${BASE_URL}/calculateTDEE?bmr=${bmr}&activityLevel=${activityLevel}`, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+            'Accept': 'application/json',
+        }
+    });
+    return handleResponse(response);
+}
+export async function postData(endpoint, data) {
+    const response = await fetch(`${BASE_URL}${endpoint}`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+    return handleResponse(response);
 }
 
