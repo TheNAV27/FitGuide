@@ -2,6 +2,7 @@
     import '$lib/styles/style.css';
     import Header from "$lib/components/Header.svelte";
     import Footer from "$lib/components/Footer.svelte"
+    import  {calculateBMR,calculateTDEE } from '$lib/services/api';
 
 
     interface BmrFormData{
@@ -14,14 +15,11 @@
         bmr : number;
         activityLevel:'Sedentary' | 'Lightly active' | 'Moderately active' | 'Very active' | 'Extremely active' ;
     }
-
-    interface resultBMR{
-        bmr : number;
-    }
-    interface resultTdee{
+    interface TdeeResult {
         tdee: number;
-        activityLevel : string;
+        activityLevel: string;
     }
+
     let formData: BmrFormData = {
         gender: 'male',
         weight: 70,
@@ -33,8 +31,8 @@
         activityLevel:'Sedentary'
 
     };
-    let bmrResult: resultBMR;
-    let tdeeResult: resultTdee;
+    let bmrResult: {bmr:number};
+    let tdeeResult: TdeeResult;
     let bmrLoading = false;
     let tdeeLoading = false;
     let error: string | null = null;
@@ -51,17 +49,7 @@
             params.append('height',formData.height.toString())
             params.append('age',formData.age.toString())
 
-            const response = await fetch(`http://localhost:8080/api/calculateBMR?${params.toString()}`, {
-                credentials: 'include',  // Required for CORS with credentials
-                headers: {
-                    'Accept': 'application/json'
-                }
-            });
-
-            if(!response.ok){
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            bmrResult = await response.json();
+            bmrResult = await calculateBMR(formData);
             tdeeData.bmr = bmrResult.bmr;
         } catch(err){
             error = err instanceof Error ? err.message : 'Unknown error occurred';
@@ -71,7 +59,7 @@
         }
     }
 
-    async function calculateTDEE(event: Event){
+    async function calculateTdee(event: Event){
         event.preventDefault();
         tdeeLoading = true;
         error = null;
@@ -81,17 +69,10 @@
             params.append('BMR',tdeeData.bmr.toString())
             params.append('activityLevel',tdeeData.activityLevel)
 
-            const response = await fetch(`http://localhost:8080/api/calculateTDEE?${params.toString()}`, {
-                credentials: 'include',  // Required for CORS with credentials
-                headers: {
-                    'Accept': 'application/json'
-                }
+            tdeeResult = await calculateTDEE({
+                bmr:tdeeData.bmr,
+                activityLevel: tdeeData.activityLevel
             });
-
-            if(!response.ok){
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            tdeeResult = await response.json()
         }catch(err){
             error = err instanceof Error ? err.message : 'Unknown error occurred';
             console.error('Calculation error:', err);
