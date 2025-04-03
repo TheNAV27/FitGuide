@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/api")
 public class BmrController {
     private final BmrCalculatorService bmrCalculatorService;
@@ -15,7 +16,7 @@ public class BmrController {
         this.bmrCalculatorService = bmrCalculatorService;
         this.tdeeCalculatorService = tdeeCalculatorService;
     }
-    @GetMapping("api/calculateBMR")
+    @GetMapping("/calculateBMR")
     public ResponseEntity<?> calculateBMR(
             @RequestParam (required = true) String gender,
             @RequestParam double weight,
@@ -31,7 +32,7 @@ public class BmrController {
         response.setBmr(bmr);
         return ResponseEntity.ok(response);
     }
-    @GetMapping("api/calculateTDEE")
+    @GetMapping("/calculateTDEE")
     public ResponseEntity<?> calculateTDEE(
             @RequestParam (required = true) double BMR,
             @RequestParam (required = true) String activityLevel

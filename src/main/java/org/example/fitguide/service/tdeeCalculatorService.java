@@ -2,6 +2,8 @@ package org.example.fitguide.service;
 
 import org.springframework.stereotype.Service;
 
+
+
 @Service
 public class tdeeCalculatorService {
 
@@ -12,7 +14,7 @@ public class tdeeCalculatorService {
         if(activityLevel == null){
             throw new IllegalArgumentException("Activity level is required");
         }
-        return switch(activityLevel.toLowerCase()){
+        return switch(activityLevel.trim().toLowerCase()){
             case "sedentary" -> BMR*1.2;
             case "lightly active" -> BMR*1.375;
             case "moderately active" -> BMR*1.55;

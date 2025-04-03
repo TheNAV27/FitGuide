@@ -1,4 +1,4 @@
-<script lang="ts">
+<script lang="js">
 
     import {goto} from "$app/navigation";
 
@@ -14,7 +14,7 @@
 <div class = "mainhome-container">
     <div class="header">
         <h1 class = "fitguide-home" on:click={redirectHome}>Welcome to FitGuide!</h1>
-        <button class="bmrtdeebutton" on:click={redirectRegister}>Register</button>
+        <button class="mainButton" on:click={redirectRegister}>Register</button>
     </div>
 
 </div>
