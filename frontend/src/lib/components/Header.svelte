@@ -5,8 +5,8 @@
     function redirectHome(){
         goto('/')
     }
-    function redirectRegister(){
-        goto('/register')
+    function redirectLogin(){
+        goto('/Login')
     }
 </script>
 
@@ -14,7 +14,7 @@
 <div class = "mainhome-container">
     <div class="header">
         <h1 class = "fitguide-home" on:click={redirectHome}>Welcome to FitGuide!</h1>
-        <button class="mainButton" on:click={redirectRegister}>Register</button>
+        <button class="mainButton" on:click={redirectLogin}>Login</button>
     </div>
 
 </div>
