@@ -8,6 +8,8 @@ declare global {
 		// interface PageState {}
 		// interface Platform {}
 	}
+	module '$lib/components/Header.svelte';
+	module '$lib/components/Footer.svelte';
 }
 
 export {};

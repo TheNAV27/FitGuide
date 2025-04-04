@@ -1,6 +1,6 @@
-package org.example.fitguide.api.modelAPI;
+package org.example.fitguide.repository;
 
-import org.example.fitguide.api.model.User;
+import org.example.fitguide.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

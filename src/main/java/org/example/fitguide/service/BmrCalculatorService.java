@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BmrCalculatorService {
-    public  double calculateBMR(String gender, double weight, double height, int age) {
+    public double calculateBMR(String gender, double weight, double height, int age) {
         if (gender == null) {
             throw new NullPointerException("Gender cannot be null");
         }

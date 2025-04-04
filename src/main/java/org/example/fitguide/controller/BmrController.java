@@ -1,4 +1,4 @@
-package org.example.fitguide.api.controller;
+package org.example.fitguide.controller;
 
 import org.example.fitguide.service.BmrCalculatorService;
 import org.example.fitguide.service.tdeeCalculatorService;

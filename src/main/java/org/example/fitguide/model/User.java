@@ -1,15 +1,11 @@
-package org.example.fitguide.api.model;
+package org.example.fitguide.model;
 
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.Instant;
-import java.util.Optional;
 import java.util.UUID;
 
 @Entity
