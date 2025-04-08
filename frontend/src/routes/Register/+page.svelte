@@ -13,12 +13,17 @@
         <label for="email">Email</label>
         <input/>
     </div>
+    <div class="form-group">
+        <label for="name">username</label>
+        <input type="text" id="name" name="name" required>
+        <div id="nameError" class="error"></div>
+    </div>
 
     <div class="form-group">
         <label for="password">Password</label>
-        <input/>
+        <input type="password" id="password" name="password" required>
+        <div id="passwordError" class="error"></div>
     </div>
-
     <button class="mainButton" type="submit">Register
     </button>
 
