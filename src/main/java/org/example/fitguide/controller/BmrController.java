@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
-@RequestMapping("/api")
+@RequestMapping("/api/calculate")
 public class BmrController {
     private final BmrCalculatorService bmrCalculatorService;
     private final org.example.fitguide.service.tdeeCalculatorService tdeeCalculatorService;
