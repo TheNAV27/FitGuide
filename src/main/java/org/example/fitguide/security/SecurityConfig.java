@@ -21,8 +21,8 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .formLogin(httpForm -> {
-                    httpForm.loginPage("/api/Login").permitAll();
-                        })
+                    httpForm.disable();
+                })
                 .build();
 
 
