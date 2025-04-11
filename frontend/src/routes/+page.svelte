@@ -8,8 +8,9 @@
 
 
 
-    async function redirectToHome(){
-        goto('/main')
+
+    async function redirectToCalculator(){
+        goto('/main');
     }
 
 </script>
@@ -35,7 +36,7 @@
         TDEE = Total calories burned in a day.
         To lose weight, eat below TDEE; to maintain, match TDEE; to gain, eat above TDEE. Both help manage diet and fitness goals effectively.
     </p>
-    <button class="mainButton" on:click={redirectToHome}>BMR and TDEE calculator</button>
+    <button class="mainButton" on:click={redirectToCalculator}>BMR and TDEE calculator</button>
 </div>
 
 <Footer />
