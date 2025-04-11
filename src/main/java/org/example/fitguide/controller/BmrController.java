@@ -34,10 +34,10 @@ public class BmrController {
     }
     @GetMapping("/calculateTDEE")
     public ResponseEntity<?> calculateTDEE(
-            @RequestParam (required = true) double BMR,
+            @RequestParam (required = true) double bmr,
             @RequestParam (required = true) String activityLevel
     ){
-        double tdee = tdeeCalculatorService.calculateTDEE(BMR,activityLevel);
+        double tdee = tdeeCalculatorService.calculateTDEE(bmr,activityLevel);
         TdeeResponse response = new TdeeResponse();
         response.setTdee(tdee);
         return ResponseEntity.ok(response);

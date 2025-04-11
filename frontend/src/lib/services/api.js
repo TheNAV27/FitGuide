@@ -39,7 +39,7 @@ export async function calculateBMR(params) {
 // Function to calculate TDEE
 export async function calculateTDEE(params) {
     const query = new URLSearchParams({
-        BMR: params.bmr.toString(),
+        bmr: params.bmr.toString(),
         activityLevel: params.activityLevel,
     }).toString();
 
